@@ -126,7 +126,20 @@ void check_touch_screen()
     
     /* type password button*/
     if(p.x >= 110 && p.y >= 15 && p.x <= 149 && p.y <= 156 && current_screen_number == 1  && current_site_number != 99){
-      //Serial.println(Decrypted_Password[current_site_number]);
+      /* rfid authentication dialog */
+      Tft.fillRectangle(50,20,35,135,WHITE);
+      /* rfid authentication text */
+      Tft.drawString("i.d. needed", 58,152,2,BLUE);       
+      /* Activate the RFID reader */
+      digitalWrite(9, LOW); 
+      /* wait until you have the correct rfid code */
+      while(card_found == false){
+        check_for_rfid_card();
+      }      
+      /* deactivate RFID reader */
+      digitalWrite(9, HIGH);
+      /* reset card found flag */
+      card_found = false;
       /* get password length */
       int sizeOfPW = Decrypted_Password[current_site_number].length();
       /* store the password in a new string temporarily */
@@ -140,7 +153,7 @@ void check_touch_screen()
       /* draw password to screen */
       Tft.drawString(current_password, 19,300,2,BLUE); 
       /* draw clear screen button rectangle*/
-      Tft.fillRectangle(50,20,35,120,WHITE);
+      Tft.fillRectangle(50,20,35,135,WHITE);
       /* clear site text */
       Tft.drawString("Clear", 58,110,2,RED); 
       
@@ -201,8 +214,22 @@ void check_touch_screen()
       diplayed_screen_1 = false;
     }
     
-    /* change password button*/
+    /* change password buttons */
     if(p.x >= 111 && p.y >= 5 && p.x <= 146 && p.y <= 38 && current_screen_number == 2){
+        Tft.fillRectangle(170,10,35,140,WHITE);
+        Tft.drawString("i.d. needed", 178,145,2,BLACK);
+        /* Activate the RFID reader */
+        digitalWrite(9, LOW); 
+        /* wait until you have the correct rfid code */
+        while(card_found == false){
+          check_for_rfid_card();
+        }      
+        /* deactivate RFID reader */
+        digitalWrite(9, HIGH);
+        /* reset card found flag */
+        card_found = false;  
+        Tft.fillRectangle(170,10,35,140,BLACK);
+        
         /* no response box */
         Tft.fillRectangle(160,10,35,35,WHITE);
         /* no */ 
@@ -259,7 +286,7 @@ void smart_clear_screen()
   /* type pw button */  
   Tft.fillRectangle(110,20,35,140,BLACK);
   /* clear clear screen button rectangle*/
-  Tft.fillRectangle(50,10,35,160,BLACK);
+  Tft.fillRectangle(50,20,35,135,BLACK);
   /* clear site 1 button*/
   Tft.fillRectangle(10,170,35,135,BLACK);
   /* clear site 2 button*/

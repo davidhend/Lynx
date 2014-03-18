@@ -28,7 +28,8 @@ void writeSD()
     myFile.print("\n");    
     myFile.close();
   } else {
-    /* if the file didn't open, print an error: */
+    /* reset arduino */
+    asm volatile ("  jmp 0");
   }
 }
 
@@ -64,7 +65,7 @@ String readFile(int line)
 
 String encryptDecrypt(String toEncrypt) {
     /*Any chars will work */
-    char key[3] = {'K', 'C', 'Q'}; 
+    char key[3] = {'D', 'T', 'H'}; 
     String output = toEncrypt;
     
     for (int i = 0; i < toEncrypt.length(); i++)

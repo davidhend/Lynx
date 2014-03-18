@@ -53,6 +53,7 @@ boolean password_1_set = false;
 boolean password_2_set = false;
 boolean password_3_set = false;
 boolean password_4_set = false;
+
 /* used for RFID */
 char val; 
 char code[10]; 
@@ -69,33 +70,22 @@ void setup()
   /* serial begin */
   Serial.begin(2400);
   /* Set digital pin 9 as OUTPUT to connect it to the RFID /ENABLE pin */
-  pinMode(9,OUTPUT);    
-  /* Activate the RFID reader */
-  digitalWrite(9, LOW);                  
-  /* wait until you have the correct rfid code */
-  while(card_found == false){
-     check_for_rfid_card();
-  }
-  /* deactivate RFID reader */
-  digitalWrite(9, HIGH);  
-  
+  pinMode(9,OUTPUT);     
   /* init tft library */
   Tft.TFTinit();   
   /* init entropy */
   Entropy.Initialize();
   /* init sd card */
   pinMode(10, OUTPUT);
-   
+  /* init sd card */
   if (!SD.begin(4)) {
-    Serial.println("initialization failed!");
+    //Serial.println("initialization failed!");
     return;
   }
-  
   /* read password file */
   read_password_file();
   /* check to see which slots already have passwords */
-  check_password_status();
-  
+  check_password_status(); 
 }
 
 

@@ -44,7 +44,6 @@ void select_site_number(int Site_Number)
        current_site_number = 2;
        /* decrypt password from sd */
        decrypt_password_data(2);       
-       
        break;
      case 3:
        //Serial.println("Site #3 Selected.");

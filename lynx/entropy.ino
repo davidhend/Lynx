@@ -2,18 +2,24 @@
 char mapChar(uint32_t parm)
 {
   char retval;
-  if (parm < 10)           // map 0..9 to ascii 0..9
+  /* map 0..9 to ascii 0..9 */
+  if (parm < 10)           
     retval = char(48 + parm);
-  else if (parm < 11)      // map 10 to -
+  /* map 10 to - */  
+  else if (parm < 11)      
     retval = '-';
-  else if (parm < 12)      // map 11 to +
+  /* map 11 to + */  
+  else if (parm < 12)      
     retval = '.';
-  else if (parm < 38)      // map 12 to 37 to ascii A..Z
+  /* map 12 to 37 to ascii A..Z */  
+  else if (parm < 38)      
     retval = char(53 + parm);
-  else if (parm < 64)      // map 38 to 63 to ascii a..z
+  /* map 38 to 63 to ascii a..z */  
+  else if (parm < 64)      
     retval = char(59 + parm);
   else
-    retval = 0;            // if parm is invalid return null  
+    /* if parm is invalid return null */  
+    retval = 0;             
   return(retval);
 }
 
@@ -24,8 +30,7 @@ char *getPassword(char *pw)
   char ch;
   int indx;
   uint32_t tmp;
-  
-  
+    
   for (indx=0; indx<8; indx++)
   { 
     tmp = mapChar(Entropy.random(64));
